@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="400" style="-fx-background-color: #2e2e2e;" stylesheets="@style/login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.LoginController">
+
+    <VBox alignment="CENTER" layoutX="40.0" layoutY="30.0" prefHeight="302.0" prefWidth="320.0" spacing="10" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+
+        <!-- Logo -->
+        <ImageView fitHeight="120" fitWidth="120">
+            <image>
+                <Image url="@images/logo.png" />
+            </image>
+        </ImageView>
+
+        <!-- Napis pod logo -->
+        <Label prefHeight="20.0" prefWidth="219.0" style="-fx-text-fill: white; -fx-font-size: 14px;" text="Aplikacja do zarządzania budżetem">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+
+        <!-- Pole na komunikaty błędów -->
+        <Label fx:id="messageLabel" style="-fx-text-fill: red; -fx-font-size: 12px;" text=" " />
+
+        <!-- Pola logowania -->
+        <TextField fx:id="loginField" promptText="Login" style="-fx-background-color: #3a3a3a; -fx-text-fill: white; -fx-prompt-text-fill: gray;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+        <PasswordField fx:id="passwordField" promptText="Hasło" style="-fx-background-color: #3a3a3a; -fx-text-fill: white; -fx-prompt-text-fill: gray;">
+         <font>
+            <Font size="14.0" />
+         </font></PasswordField>
+
+        <!-- Przyciski logowania -->
+        <HBox alignment="CENTER" spacing="10">
+            <Button onAction="#handleLogin" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #0078D7; -fx-text-fill: white;" text="Zaloguj">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+            <Button onAction="#handleCancel" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #d73f3f; -fx-text-fill: white;" text="Anuluj">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+        </HBox>
+
+    </VBox>
+
+    <!-- Przyciski dodatkowe na dole, mniejsza przestrzeń -->
+    <HBox alignment="CENTER" layoutX="50.0" layoutY="361.0" prefWidth="300" spacing="10">
+        <Button onAction="#openSettings" style="-fx-background-color: #555555; -fx-text-fill: white;" styleClass="settings-button" text="Ustawienia" />
+        <Button onAction="#openUserRegistration" style="-fx-background-color: #3a7d44; -fx-text-fill: white;" styleClass="user-button" text="Dodaj użytkownika" />
+    </HBox>
+
+</AnchorPane>

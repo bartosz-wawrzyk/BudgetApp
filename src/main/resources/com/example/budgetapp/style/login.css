@@ -1,0 +1,26 @@
+.button {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-transition: 0.3s;
+}
+
+.button:hover {
+    -fx-background-color: #5a5a5a;
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.settings-button, .user-button {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.user-button {
+    -fx-background-color: #3a7d44;
+}
