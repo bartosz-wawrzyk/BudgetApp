@@ -2,6 +2,7 @@ module com.example.budgetapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
 
 
     opens com.example.budgetapp to javafx.fxml;
@@ -10,4 +11,5 @@ module com.example.budgetapp {
     opens com.example.budgetapp.controllers to javafx.fxml;
     exports com.example.budgetapp.database;
     opens com.example.budgetapp.database to javafx.fxml;
+    opens com.example.budgetapp.models to javafx.base;
 }

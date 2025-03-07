@@ -1,0 +1,26 @@
+.button {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-transition: 0.3s;
+}
+
+.acceptButton {
+    -fx-background-color: #3a7d44;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.cancelButton {
+    -fx-background-color: #d73f3f;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+

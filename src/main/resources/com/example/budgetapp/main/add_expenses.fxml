@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="350.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.AddExpensesController">
+    <VBox alignment="TOP_CENTER" layoutX="65.0" prefHeight="380.0" prefWidth="220.0" spacing="20.0">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj wydatek">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Text>
+        <ComboBox fx:id="categoryComboBox" prefWidth="220.0" promptText="Wybierz kategorię" />
+        <ComboBox fx:id="subcategoryComboBox" prefWidth="220.0" promptText="Wybierz podkategorię" />
+        <ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="220.0" promptText="Wybierz miesiąc">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Styczeń" />
+                    <String fx:value="Luty" />
+                    <String fx:value="Marzec" />
+                    <String fx:value="Kwiecień" />
+                    <String fx:value="Maj" />
+                    <String fx:value="Czerwiec" />
+                    <String fx:value="Lipiec" />
+                    <String fx:value="Sierpień" />
+                    <String fx:value="Wrzesień" />
+                    <String fx:value="Październik" />
+                    <String fx:value="Listopad" />
+                    <String fx:value="Grudzień" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+      <TextField fx:id="yearTextField" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="210.0" promptText="Wpisz rok">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TextField>
+         <TextField fx:id="amountTextField" prefHeight="25.0" prefWidth="200.0" promptText="Wpisz kwotę" />
+
+        <HBox alignment="CENTER" spacing="20.0">
+           <Button fx:id="acceptButton" onAction="#handleAddExpense" prefHeight="40.0" prefWidth="100.0" styleClass="acceptButton" stylesheets="@../style/buttons.css" text="Zapisz" />
+            <Button fx:id="cancelButton" onAction="#handleCancel" prefHeight="40.0" prefWidth="100.0" styleClass="cancelButton" stylesheets="@../style/buttons.css" text="Anuluj" />
+        </HBox>
+      <padding>
+         <Insets top="10.0" />
+      </padding>
+    </VBox>
+</Pane>

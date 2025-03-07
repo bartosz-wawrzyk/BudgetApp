@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="350.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.AddIncomeController">
+   <VBox alignment="CENTER" layoutX="75.0" prefHeight="380.0" prefWidth="200.0" spacing="20.0">
+      <Label text="Dodaj przychód" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+
+      <TextField fx:id="amountField" prefWidth="200.0" promptText="Kwota">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></TextField>
+
+      <ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="200.0" promptText="Wybierz miesiąc">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Styczeń" />
+               <String fx:value="Luty" />
+               <String fx:value="Marzec" />
+               <String fx:value="Kwiecień" />
+               <String fx:value="Maj" />
+               <String fx:value="Czerwiec" />
+               <String fx:value="Lipiec" />
+               <String fx:value="Sierpień" />
+               <String fx:value="Wrzesień" />
+               <String fx:value="Październik" />
+               <String fx:value="Listopad" />
+               <String fx:value="Grudzień" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+
+      <TextField fx:id="yearField" prefWidth="200.0" promptText="Rok">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></TextField>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+      
+            <Button onAction="#handleAddIncome" prefHeight="40.0" prefWidth="100.0" styleClass="acceptButton" stylesheets="@../style/buttons.css" text="Zapisz" />
+            <Button fx:id="cancelButton" onAction="#handleCancel" prefHeight="40.0" prefWidth="100.0" styleClass="cancelButton" stylesheets="@../style/buttons.css" text="Anuluj" />
+         </children>
+      </HBox>
+   </VBox>
+</Pane>
