@@ -12,4 +12,5 @@ module com.example.budgetapp {
     exports com.example.budgetapp.database;
     opens com.example.budgetapp.database to javafx.fxml;
     opens com.example.budgetapp.models to javafx.base;
+    opens com.example.budgetapp.controllers.menu to javafx.fxml;
 }

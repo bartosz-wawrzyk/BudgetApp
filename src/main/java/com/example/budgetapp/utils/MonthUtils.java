@@ -1,4 +1,4 @@
-package com.example.budgetapp.alerts;
+package com.example.budgetapp.utils;
 
 import java.util.HashMap;
 import java.util.Map;

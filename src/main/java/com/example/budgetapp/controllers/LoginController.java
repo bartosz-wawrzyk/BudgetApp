@@ -2,10 +2,12 @@ package com.example.budgetapp.controllers;
 
 import com.example.budgetapp.Main;
 import com.example.budgetapp.database.DatabaseConnection;
+import com.example.budgetapp.utils.IconUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -55,6 +57,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/budgetapp/configurations/settings.fxml"));
             Stage settingsStage = new Stage();
             settingsStage.setTitle("Konfiguracja bazy danych");
+            IconUtil.setAppIcon(settingsStage);
             settingsStage.setScene(new javafx.scene.Scene(loader.load()));
 
             settingsStage.initModality(Modality.APPLICATION_MODAL);
@@ -84,6 +87,7 @@ public class LoginController {
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setTitle("Aplikacja do zarządzania budżetem domowym");
+            IconUtil.setAppIcon(newStage);
             newStage.setScene(scene);
             newStage.show();
         } catch (IOException e) {
@@ -118,6 +122,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/budgetapp/configurations/addUser.fxml"));
             Stage settingsStage = new Stage();
             settingsStage.setTitle("Dodanie nowego użytkownika");
+            IconUtil.setAppIcon(settingsStage);
             settingsStage.setScene(new javafx.scene.Scene(loader.load()));
 
             settingsStage.initModality(Modality.APPLICATION_MODAL);

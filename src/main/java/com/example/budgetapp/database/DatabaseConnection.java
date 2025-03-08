@@ -60,7 +60,7 @@ public class DatabaseConnection {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt(1) > 0; // Zwraca true, jeśli użytkownik istnieje
+                return resultSet.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();

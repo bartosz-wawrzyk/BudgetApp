@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.menu.SubCategoriesController">
+   <Text fill="WHITE" layoutX="149.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Słownik podkategorii">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Text>
+   <TableView fx:id="subcategoriesTableView" layoutX="10.0" layoutY="146.0" prefHeight="240.0" prefWidth="480.0" style="-fx-background-color: #2e2e2e;">
+     <columns>
+       <TableColumn fx:id="columnID" prefWidth="38.0" text="ID" />
+       <TableColumn fx:id="columnName" prefWidth="202.0" text="Nazwa" />
+         <TableColumn fx:id="columnCategory" prefWidth="239.0" text="Kategoria" />
+     </columns>
+   </TableView>
+   <HBox alignment="CENTER" layoutX="57.0" layoutY="49.0" prefHeight="51.0" prefWidth="387.0" spacing="20.0">
+      <children>
+         <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="30.0">
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/add.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="buttonEdit" mnemonicParsing="false" onAction="#handleEdit" prefHeight="30.0" prefWidth="30.0">
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/edit.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefHeight="30.0" prefWidth="30.0">
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/minus.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="buttonAccept" mnemonicParsing="false" onAction="#handleAccept" prefHeight="30.0" prefWidth="30.0">
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/accept.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="buttonCancel" mnemonicParsing="false" onAction="#handleCancel" prefHeight="30.0" prefWidth="30.0">
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/cancel.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+      </children>
+   </HBox>
+   <HBox alignment="CENTER" layoutX="101.0" layoutY="100.0" prefHeight="32.0" prefWidth="299.0" spacing="20.0">
+      <children>
+         <TextField fx:id="subcategoryNameField" prefHeight="25.0" prefWidth="150.0" />
+         <ComboBox fx:id="comboboxCategory" prefWidth="150.0" />
+      </children>
+   </HBox>
+</Pane>

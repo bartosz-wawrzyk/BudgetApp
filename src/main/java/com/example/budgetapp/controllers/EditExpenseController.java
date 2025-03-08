@@ -1,6 +1,6 @@
 package com.example.budgetapp.controllers;
 
-import com.example.budgetapp.alerts.AlertsController;
+import com.example.budgetapp.utils.AlertsController;
 import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.models.ExpenseRecord;
 import javafx.fxml.FXML;

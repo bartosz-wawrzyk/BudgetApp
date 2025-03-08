@@ -1,9 +1,10 @@
 package com.example.budgetapp.controllers;
 
-import com.example.budgetapp.alerts.AlertsController;
-import com.example.budgetapp.alerts.ErrorLogger;
+import com.example.budgetapp.utils.AlertsController;
+import com.example.budgetapp.utils.ErrorLogger;
 import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.models.ExpenseRecord;
+import com.example.budgetapp.utils.IconUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,6 +91,7 @@ public class MainWindowController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
+            IconUtil.setAppIcon(stage);
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadExpenses();
@@ -181,13 +183,32 @@ public class MainWindowController {
         }
     }
 
-    public void handleCategoryDictionary(ActionEvent actionEvent) {
+    public void handleCategoryDictionary() {
+        openModalWindowMenu("/com/example/budgetapp/configurations/categories.fxml","Słownik kategorii");
     }
 
-    public void handleSubcategoryDictionary(ActionEvent actionEvent) {
+    public void handleSubcategoryDictionary() {
+        openModalWindowMenu("/com/example/budgetapp/configurations/subcategories.fxml","Słownik podkategorii");
     }
 
-    public void handleLogout(ActionEvent actionEvent) {
+    public void handleLogout() {
 
+    }
+
+    private void openModalWindowMenu(String fxmlFile, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(title);
+            IconUtil.setAppIcon(stage);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadExpenses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

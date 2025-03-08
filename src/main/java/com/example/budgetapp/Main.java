@@ -1,8 +1,10 @@
 package com.example.budgetapp;
 
+import com.example.budgetapp.utils.IconUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -15,6 +17,7 @@ public class Main extends Application {
         AnchorPane root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Logowanie");
+        IconUtil.setAppIcon(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

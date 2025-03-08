@@ -1,4 +1,4 @@
-package com.example.budgetapp.alerts;
+package com.example.budgetapp.utils;
 
 import javafx.scene.control.Alert;
 

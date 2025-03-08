@@ -1,6 +1,6 @@
 package com.example.budgetapp.controllers;
 
-import com.example.budgetapp.alerts.MonthUtils;
+import com.example.budgetapp.utils.MonthUtils;
 import com.example.budgetapp.database.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-import static com.example.budgetapp.alerts.AlertsController.showAlert;
+import static com.example.budgetapp.utils.AlertsController.showAlert;
 
 public class AddIncomeController {
 

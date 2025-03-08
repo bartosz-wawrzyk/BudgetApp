@@ -1,7 +1,7 @@
 package com.example.budgetapp.controllers;
 
-import com.example.budgetapp.alerts.AlertsController;
-import com.example.budgetapp.alerts.MonthUtils;
+import com.example.budgetapp.utils.AlertsController;
+import com.example.budgetapp.utils.MonthUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
