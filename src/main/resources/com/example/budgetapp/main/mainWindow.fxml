@@ -8,31 +8,36 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.MainWindowController">
-   <top>
-      <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="800.0" spacing="20.0" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2e2e2e;" stylesheets="@../style/buttons.css, @../style/mainWindow.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.MainWindowController">
+   <children>
+      <HBox alignment="TOP_CENTER" prefHeight="55.0" prefWidth="1000.0" spacing="20.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#handleIncome" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2e2e2e;" text="Dodaj przychód" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleExpenses" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2e2e2e;" text="Dodaj wydatek" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleEdit" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2e2e2e;" text="Edytuj" textFill="WHITE" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2e2e2e;" text="Wykresy" textFill="WHITE" />
-            <MenuButton alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2e2e2e;" text="Menu" textAlignment="RIGHT" textFill="WHITE">
-              <items>
-                 <MenuItem onAction="#handleCategoryDictionary" text="Słownik kategorii" />
-                 <MenuItem onAction="#handleSubcategoryDictionary" text="Słownik podkategorii" />
-                 <MenuItem onAction="#handleLogout" text="Wyloguj się" />
-              </items>
+            <Button mnemonicParsing="false" onAction="#handleIncome" prefHeight="40.0" prefWidth="120.0" text="Dodaj przychód" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#handleExpenses" prefHeight="40.0" prefWidth="120.0" text="Dodaj wydatek" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#handleEdit" prefHeight="40.0" prefWidth="120.0" text="Edytuj" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#handleDetails" prefHeight="40.0" prefWidth="120.0" text="Szczegóły miesiąca/roku" textFill="WHITE" />
+            <MenuButton fx:id="menuButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="main-button" text="Menu" textAlignment="RIGHT" textFill="WHITE">>
+               <items>
+                  <MenuItem onAction="#handleCategoryDictionary" text="Słownik kategorii" />
+                  <MenuItem onAction="#handleSubcategoryDictionary" text="Słownik podkategorii" />
+                  <MenuItem onAction="#handleTableConfiguration" text="Konfiguracja tabeli" />
+                  <MenuItem onAction="#handleLogout" text="Wyloguj się" />
+               </items>
                <HBox.margin>
-                  <Insets left="100.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </MenuButton>
          </children>
          <padding>
@@ -42,20 +47,18 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-   </top>
-   <center>
-      <!-- Tabela wyświetlająca dane -->
-      <TableView fx:id="expensesTable" prefHeight="450.0" prefWidth="508.0" style="-fx-background-color: #2e2e2e;" BorderPane.alignment="CENTER">
+
+      <TableView fx:id="expensesTable" layoutX="14.0" layoutY="136.0" prefHeight="450.0" prefWidth="980.0">
          <columns>
-            <TableColumn fx:id="monthColumn" prefWidth="150.0" text="Miesiąc" />
-            <TableColumn fx:id="yearColumn" prefWidth="100.0" text="Rok" />
-            <TableColumn fx:id="incomeColumn" prefWidth="150.0" text="Przychód" />
-            <TableColumn fx:id="rentColumn" prefWidth="150.0" text="Czynsz" />
-            <TableColumn fx:id="adminRentColumn" prefWidth="150.0" text="Czynsz administracyjny" />
+            <TableColumn fx:id="monthColumn" maxWidth="60.0" prefWidth="60.0" resizable="false" text="Miesiąc" />
+            <TableColumn fx:id="yearColumn" maxWidth="60.0" prefWidth="60.0" resizable="false" text="Rok" />
+            <TableColumn fx:id="incomeColumn" maxWidth="120.0" prefWidth="120.0" resizable="false" text="Przychód" />
+            <TableColumn fx:id="differenceColumn" maxWidth="120.0" prefWidth="120.0" resizable="false" text="Wydatki" />
+            <TableColumn fx:id="subcategoryColumn" prefWidth="704.0" text="Podkategoria" />
          </columns>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-         </BorderPane.margin>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-   </center>
-</BorderPane>
+   </children>
+</AnchorPane>

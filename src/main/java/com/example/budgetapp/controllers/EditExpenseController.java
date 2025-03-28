@@ -4,14 +4,10 @@ import com.example.budgetapp.utils.AlertsController;
 import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.models.ExpenseRecord;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class EditExpenseController {
 
@@ -25,10 +21,13 @@ public class EditExpenseController {
     private TextField incomeField;
 
     @FXML
-    private TextField rentField;
+    private ComboBox<String> categoryComboBox;
 
     @FXML
-    private TextField adminRentField;
+    private ComboBox<String> subcategoryComboBox;
+
+    @FXML
+    private TextField subcategoryAmountField;
 
     @FXML
     private Button cancelButton;
@@ -39,11 +38,108 @@ public class EditExpenseController {
     public void setExpenseData(ExpenseRecord expense, String userId) {
         this.expense = expense;
         this.userId = userId;
+
         monthField.setText(expense.getMonth());
         yearField.setText(expense.getYear());
         incomeField.setText(String.valueOf(expense.getIncome()));
-        rentField.setText(String.valueOf(expense.getRent()));
-        adminRentField.setText(String.valueOf(expense.getAdminRent()));
+
+        monthField.setDisable(true);
+        yearField.setDisable(true);
+
+        loadUserCategories();
+    }
+
+    private void loadUserCategories() {
+        categoryComboBox.getItems().clear();
+
+        try (Connection conn = DatabaseConnection.connect()) {
+            String query = """
+                SELECT DISTINCT c.name
+                FROM categories c
+                JOIN subcategories s ON c.id = s.id_category
+                JOIN expenses e ON e.id_subcategory = s.id
+                WHERE e.user_id = ? AND e.month = ? AND e.year = ?
+            """;
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, Integer.parseInt(userId));
+            stmt.setInt(2, Integer.parseInt(expense.getMonth()));
+            stmt.setInt(3, Integer.parseInt(expense.getYear()));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                categoryComboBox.getItems().add(rs.getString("name"));
+            }
+
+            categoryComboBox.setOnAction(e -> loadUserSubcategories());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadUserSubcategories() {
+        subcategoryComboBox.getItems().clear();
+        subcategoryAmountField.clear();
+
+        String selectedCategory = categoryComboBox.getValue();
+        if (selectedCategory == null) return;
+
+        try (Connection conn = DatabaseConnection.connect()) {
+            String query = """
+                SELECT s.name
+                FROM subcategories s
+                JOIN categories c ON s.id_category = c.id
+                JOIN expenses e ON e.id_subcategory = s.id
+                WHERE c.name = ? AND e.user_id = ? AND e.month = ? AND e.year = ?
+                GROUP BY s.name
+            """;
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, selectedCategory);
+            stmt.setInt(2, Integer.parseInt(userId));
+            stmt.setInt(3, Integer.parseInt(expense.getMonth()));
+            stmt.setInt(4, Integer.parseInt(expense.getYear()));
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                subcategoryComboBox.getItems().add(rs.getString("name"));
+            }
+
+            subcategoryComboBox.setOnAction(e -> loadSubcategoryAmount());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadSubcategoryAmount() {
+        String selectedSub = subcategoryComboBox.getValue();
+        if (selectedSub == null) return;
+
+        try (Connection conn = DatabaseConnection.connect()) {
+            String query = """
+                SELECT amount FROM expenses
+                WHERE user_id = ? AND month = ? AND year = ?
+                AND id_subcategory = (SELECT id FROM subcategories WHERE name = ?)
+            """;
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, Integer.parseInt(userId));
+            stmt.setInt(2, Integer.parseInt(expense.getMonth()));
+            stmt.setInt(3, Integer.parseInt(expense.getYear()));
+            stmt.setString(4, selectedSub);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                subcategoryAmountField.setText(String.valueOf(rs.getDouble("amount")));
+            } else {
+                subcategoryAmountField.clear();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -57,21 +153,22 @@ public class EditExpenseController {
             stmtIncome.setInt(4, Integer.parseInt(monthField.getText()));
             stmtIncome.executeUpdate();
 
-            String updateRent = "UPDATE expenses SET amount = ? WHERE user_id = ? AND year = ? AND month = ? AND id_subcategory = 1";
-            PreparedStatement stmtRent = conn.prepareStatement(updateRent);
-            stmtRent.setDouble(1, Double.parseDouble(rentField.getText()));
-            stmtRent.setInt(2, Integer.parseInt(userId));
-            stmtRent.setInt(3, Integer.parseInt(yearField.getText()));
-            stmtRent.setInt(4, Integer.parseInt(monthField.getText()));
-            stmtRent.executeUpdate();
+            String selectedSub = subcategoryComboBox.getValue();
+            if (selectedSub != null && !subcategoryAmountField.getText().isEmpty()) {
+                String updateExpense = """
+                    UPDATE expenses SET amount = ?
+                    WHERE user_id = ? AND year = ? AND month = ?
+                    AND id_subcategory = (SELECT id FROM subcategories WHERE name = ?)
+                """;
 
-            String updateAdminRent = "UPDATE expenses SET amount = ? WHERE user_id = ? AND year = ? AND month = ? AND id_subcategory = 2";
-            PreparedStatement stmtAdminRent = conn.prepareStatement(updateAdminRent);
-            stmtAdminRent.setDouble(1, Double.parseDouble(adminRentField.getText()));
-            stmtAdminRent.setInt(2, Integer.parseInt(userId));
-            stmtAdminRent.setInt(3, Integer.parseInt(yearField.getText()));
-            stmtAdminRent.setInt(4, Integer.parseInt(monthField.getText()));
-            stmtAdminRent.executeUpdate();
+                PreparedStatement stmtExpense = conn.prepareStatement(updateExpense);
+                stmtExpense.setDouble(1, Double.parseDouble(subcategoryAmountField.getText()));
+                stmtExpense.setInt(2, Integer.parseInt(userId));
+                stmtExpense.setInt(3, Integer.parseInt(yearField.getText()));
+                stmtExpense.setInt(4, Integer.parseInt(monthField.getText()));
+                stmtExpense.setString(5, selectedSub);
+                stmtExpense.executeUpdate();
+            }
 
             AlertsController.showAlert("Sukces", "Dane zostały zapisane!", Alert.AlertType.INFORMATION);
 
@@ -83,10 +180,16 @@ public class EditExpenseController {
         stage.close();
     }
 
+    public void prefillCategoryAndSubcategory(String category, String subcategory) {
+        categoryComboBox.setValue(category);
+        loadUserSubcategories(); // załaduj subkategorie
+        subcategoryComboBox.setValue(subcategory);
+        loadSubcategoryAmount();
+    }
+
     @FXML
     private void handleCancel() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 }
-

@@ -3,6 +3,7 @@ module com.example.budgetapp {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires java.prefs;
 
 
     opens com.example.budgetapp to javafx.fxml;

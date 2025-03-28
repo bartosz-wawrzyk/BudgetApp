@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.DetailsController">
+    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="500.0" spacing="10.0">
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+        <Label fx:id="headerLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <TableView fx:id="detailsTable" prefHeight="400" prefWidth="480.0">
+            <columns>
+                <TableColumn fx:id="categoryColumn" prefWidth="130.0" resizable="false" text="Kategoria" />
+                <TableColumn fx:id="subcategoryColumn" prefWidth="250.0" resizable="false" text="Podkategoria" />
+                <TableColumn fx:id="amountColumn" prefWidth="99.0" resizable="false" text="Kwota" />
+            </columns>
+        </TableView>
+        <Button alignment="CENTER" onAction="#handleClose" text="Zamknij" />
+    </VBox>
+</AnchorPane>

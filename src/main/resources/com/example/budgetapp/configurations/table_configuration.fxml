@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.budgetapp.controllers.TableConfigurationController">
+    <children>
+        <VBox alignment="TOP_LEFT" spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10">
+            <children>
+                <Label text="Wybierz kategorie do wyświetlenia" />
+
+                <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="300">
+                    <content>
+                        <VBox fx:id="checkboxContainer" spacing="5" />
+                    </content>
+                </ScrollPane>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <children>
+                        <Button text="Zapisz" onAction="#saveConfiguration" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

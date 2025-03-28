@@ -36,3 +36,33 @@ CREATE TABLE expenses (
     FOREIGN KEY (id_category) REFERENCES categories(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+-- Creation of a table for financial differences
+CREATE TABLE financial_differences (
+                                       id SERIAL PRIMARY KEY,
+                                       total DOUBLE PRECISION NOT NULL,
+                                       id_income INTEGER NOT NULL,
+                                       id_categories INTEGER NOT NULL,
+                                       CONSTRAINT fk_income FOREIGN KEY (id_income) REFERENCES incomes(id),
+                                       CONSTRAINT fk_categories FOREIGN KEY (id_categories) REFERENCES categories(id)
+);
+
+-- Creation of a table to store column display configurations in the master table
+CREATE TABLE table_configuration (
+                                     id SERIAL PRIMARY KEY,
+                                     user_id INTEGER NOT NULL,
+                                     category_id INTEGER NOT NULL,
+                                     FOREIGN KEY(user_id) REFERENCES users(id),
+                                     FOREIGN KEY(category_id) REFERENCES categories(id)
+);
+
+-- Creation of a table to store the difference between income and expenditure
+CREATE TABLE income_expense_summary (
+                                        id SERIAL PRIMARY KEY,
+                                        income_id INTEGER NOT NULL,
+                                        category_id INTEGER NOT NULL DEFAULT 0,
+                                        amount NUMERIC(10,2) NOT NULL,
+                                        FOREIGN KEY (income_id) REFERENCES incomes(id),
+                                        UNIQUE (income_id, category_id)
+);
+

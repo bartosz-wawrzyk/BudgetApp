@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -78,7 +76,7 @@ public class LoginController {
     private void openNewWindow(String userId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/budgetapp/main/mainWindow.fxml"));
-            BorderPane root = loader.load();
+            AnchorPane root = loader.load();
 
             // Pass userId to new controller
             MainWindowController controller = loader.getController();
@@ -89,6 +87,7 @@ public class LoginController {
             newStage.setTitle("Aplikacja do zarządzania budżetem domowym");
             IconUtil.setAppIcon(newStage);
             newStage.setScene(scene);
+            newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
