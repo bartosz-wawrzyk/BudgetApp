@@ -22,9 +22,7 @@
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onAction="#handleIncome" prefHeight="40.0" prefWidth="120.0" text="Dodaj przychód" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleExpenses" prefHeight="40.0" prefWidth="120.0" text="Dodaj wydatek" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleEdit" prefHeight="40.0" prefWidth="120.0" text="Edytuj" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleDetails" prefHeight="40.0" prefWidth="120.0" text="Szczegóły miesiąca/roku" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#handleDetails" prefHeight="40.0" prefWidth="200.0" text="Szczegóły miesiąca/roku" textFill="WHITE" />
             <MenuButton fx:id="menuButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="main-button" text="Menu" textAlignment="RIGHT" textFill="WHITE">>
                <items>
                   <MenuItem onAction="#handleCategoryDictionary" text="Słownik kategorii" />

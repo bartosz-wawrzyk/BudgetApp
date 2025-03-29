@@ -1,5 +1,6 @@
 package com.example.budgetapp.controllers;
 
+import com.example.budgetapp.controllers.menu.TableConfigurationController;
 import com.example.budgetapp.utils.AlertsController;
 import com.example.budgetapp.utils.ErrorLogger;
 import com.example.budgetapp.database.DatabaseConnection;
@@ -18,9 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class MainWindowController {
 
@@ -229,21 +228,8 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleExpenses() {
-        openModalWindow("/com/example/budgetapp/main/add_expenses.fxml", "Dodaj wydatek", userId);
-    }
-
-    @FXML
     private void handleTableConfiguration() {
         openModalWindow("/com/example/budgetapp/configurations/table_configuration.fxml", "Konfiguracja tabeli", userId);
-    }
-
-    @FXML
-    private void handleEdit() {
-        ExpenseRecord selected = getSingleSelectedRecord();
-        if (selected != null) {
-            openEditModal(selected);
-        }
     }
 
     @FXML
@@ -258,38 +244,16 @@ public class MainWindowController {
         List<ExpenseRecord> selectedItems = expensesTable.getSelectionModel().getSelectedItems();
 
         if (selectedItems.isEmpty()) {
-            AlertsController.showAlert("Błąd", "Nie wybrano żadnego wpisu.", Alert.AlertType.WARNING);
+            AlertsController.showAlert("Błąd", "Nie wybrano żadnego miesiąca i roku.", Alert.AlertType.WARNING);
             return null;
         }
 
         if (selectedItems.size() > 1) {
-            AlertsController.showAlert("Błąd", "Proszę wybrać tylko jeden wpis.", Alert.AlertType.WARNING);
+            AlertsController.showAlert("Błąd", "Proszę wybrać tylko jeden miesiąc i rok.", Alert.AlertType.WARNING);
             return null;
         }
 
         return selectedItems.get(0);
-    }
-
-    private void openEditModal(ExpenseRecord expense) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/budgetapp/main/edit_expense.fxml"));
-            Parent root = loader.load();
-
-            EditExpenseController controller = loader.getController();
-            controller.setExpenseData(expense, userId);
-
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Edytuj wpis");
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.showAndWait();
-
-            loadExpenses();
-
-        } catch (IOException e) {
-            ErrorLogger.logError("Błąd ładowania okna edycji: " + e.getMessage());
-        }
     }
 
     private void openDetailsModal(ExpenseRecord expense) {
@@ -298,7 +262,7 @@ public class MainWindowController {
             Parent root = loader.load();
 
             DetailsController controller = loader.getController();
-            controller.setExpenseData(expense, userId); // <-- Tak samo jak w edycji!
+            controller.setExpenseData(expense, userId);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -307,8 +271,9 @@ public class MainWindowController {
             stage.setResizable(false);
             stage.showAndWait();
 
+            loadExpenses();
         } catch (IOException e) {
-            e.printStackTrace(); // dla debugowania
+            e.printStackTrace();
             ErrorLogger.logError("Błąd ładowania szczegółów: " + e.getMessage());
         }
     }
@@ -322,10 +287,6 @@ public class MainWindowController {
                 case "/com/example/budgetapp/main/add_income.fxml" -> {
                     AddIncomeController controllerIncome = loader.getController();
                     controllerIncome.setUserId(userId);
-                }
-                case "/com/example/budgetapp/main/add_expenses.fxml" -> {
-                    AddExpensesController controllerExpenses = loader.getController();
-                    controllerExpenses.setUserId(userId);
                 }
                 case "/com/example/budgetapp/configurations/table_configuration.fxml" -> {
                     TableConfigurationController controllerTable = loader.getController();

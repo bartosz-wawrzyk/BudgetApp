@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 public class DetailItem {
     private final StringProperty category;
     private final StringProperty subcategory;
-    private final DoubleProperty amount;
+    private DoubleProperty amount;
 
     public DetailItem(String category, String subcategory, double amount) {
         this.category = new SimpleStringProperty(category);
@@ -33,5 +33,13 @@ public class DetailItem {
     }
     public String getSubcategory() {
         return subcategory.get();
+    }
+
+    public DoubleProperty getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount.set(amount);
     }
 }

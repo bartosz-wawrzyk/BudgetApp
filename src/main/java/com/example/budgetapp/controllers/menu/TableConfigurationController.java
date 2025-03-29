@@ -1,4 +1,4 @@
-package com.example.budgetapp.controllers;
+package com.example.budgetapp.controllers.menu;
 
 import com.example.budgetapp.utils.ErrorLogger;
 import javafx.fxml.FXML;
@@ -52,6 +52,7 @@ public class TableConfigurationController {
 
                 CheckBox checkBox = new CheckBox(categoryName);
                 checkBox.setUserData(categoryId);
+                checkBox.setStyle("-fx-text-fill: white;");
                 checkboxContainer.getChildren().add(checkBox);
             }
 
