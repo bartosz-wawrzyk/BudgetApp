@@ -1,5 +1,7 @@
 package com.example.budgetapp.database;
 
+import com.example.budgetapp.utils.ErrorLogger;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -18,7 +20,7 @@ public class DatabaseConnection {
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd połączenia z bazą danych: " + e.getMessage());
             return null;
         }
     }
@@ -32,7 +34,7 @@ public class DatabaseConnection {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd weryfikacji istniejącego konta: " + e.getMessage());
             return false;
         }
     }
@@ -48,7 +50,7 @@ public class DatabaseConnection {
                 userId = rs.getString("id");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd przekazania ID użytkownika: " + e.getMessage());
         }
         return userId;
     }
@@ -63,7 +65,7 @@ public class DatabaseConnection {
                 return resultSet.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd wyszukiwania istniejącego użytkownika: " + e.getMessage());
         }
         return false;
     }
@@ -80,7 +82,7 @@ public class DatabaseConnection {
 
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd dodawania nowego użytkownika: " + e.getMessage());
         }
         return false;
     }

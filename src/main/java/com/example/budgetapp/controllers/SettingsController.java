@@ -1,25 +1,47 @@
 package com.example.budgetapp.controllers;
 
 import com.example.budgetapp.database.ConfigManager;
+import com.example.budgetapp.utils.AlertsController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class SettingsController {
 
     @FXML
     private TextField hostField;
+
     @FXML
     private TextField portField;
+
     @FXML
     private TextField databaseField;
+
     @FXML
     private TextField userField;
+
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private Label currentHostLabel;
+
+    @FXML
+    private Label currentPortLabel;
+
+    @FXML
+    private Label currentDatabaseLabel;
+
+    @FXML
+    private Label currentUserLabel;
+
+    @FXML
+    private void initialize() {
+        currentHostLabel.setText("Host: " + ConfigManager.getHost());
+        currentPortLabel.setText("Port: " + ConfigManager.getPort());
+        currentDatabaseLabel.setText("Baza danych: " + ConfigManager.getDatabase());
+        currentUserLabel.setText("Użytkownik: " + ConfigManager.getUser());
+    }
 
     @FXML
     private void handleSave() {
@@ -27,7 +49,7 @@ public class SettingsController {
                 databaseField.getText().isEmpty() || userField.getText().isEmpty() ||
                 passwordField.getText().isEmpty()) {
 
-            showAlert("Wszystkie pola muszą być uzupełnione!", Alert.AlertType.ERROR);
+            AlertsController.showAlert("Błąd", "Wszystkie pola muszą być uzupełnione!", Alert.AlertType.ERROR);
             return;
         }
 
@@ -47,11 +69,5 @@ public class SettingsController {
     private void handleCancel() {
         Stage stage = (Stage) hostField.getScene().getWindow();
         stage.close();
-    }
-
-    private void showAlert(String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType, message, ButtonType.OK);
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 }

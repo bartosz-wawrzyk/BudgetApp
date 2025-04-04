@@ -2,6 +2,7 @@ package com.example.budgetapp.controllers;
 
 import com.example.budgetapp.Main;
 import com.example.budgetapp.database.DatabaseConnection;
+import com.example.budgetapp.utils.ErrorLogger;
 import com.example.budgetapp.utils.IconUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +64,7 @@ public class LoginController {
             settingsStage.showAndWait();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd zapisu ustawień bazy danych." + e.getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ public class LoginController {
             newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd otwierania okno głównego dla użytkownika: " + userId + e.getMessage());
         }
     }
 
@@ -129,7 +130,7 @@ public class LoginController {
             settingsStage.showAndWait();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd dodawania nowego użytkownika: " + e.getMessage());
         }
     }
 }

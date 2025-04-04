@@ -1,6 +1,7 @@
 package com.example.budgetapp.controllers;
 
 import com.example.budgetapp.database.DatabaseConnection;
+import com.example.budgetapp.utils.AlertsController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -40,15 +41,8 @@ public class AddUserController {
             return;
         }
 
-        // Dodanie użytkownika do bazy danych
         if (DatabaseConnection.addUser(login, password)) {
-            // Wyświetlenie alertu o sukcesie
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Sukces");
-            alert.setHeaderText(null);
-            alert.setContentText("Użytkownik został pomyślnie dodany.");
-            alert.showAndWait();
-
+            AlertsController.showAlert("Sukces", "Użytkownik został pomyślnie dodany.", Alert.AlertType.INFORMATION);
             closeCurrentWindow();
         } else {
             messageLabel.setText("Błąd podczas dodawania użytkownika.");

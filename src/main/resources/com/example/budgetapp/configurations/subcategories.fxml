@@ -12,18 +12,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.menu.SubCategoriesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" style="-fx-background-color: #2e2e2e;" stylesheets="@../style/table-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.menu.SubCategoriesController">
    <Text fill="WHITE" layoutX="149.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Słownik podkategorii">
       <font>
          <Font size="24.0" />
       </font>
    </Text>
-   <TableView fx:id="subcategoriesTableView" layoutX="10.0" layoutY="146.0" prefHeight="240.0" prefWidth="480.0" style="-fx-background-color: #2e2e2e;">
+   <TableView fx:id="subcategoriesTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="146.0" prefHeight="240.0" prefWidth="480.0" style="-fx-background-color: #2e2e2e;">
      <columns>
        <TableColumn fx:id="columnID" prefWidth="38.0" text="ID" />
-       <TableColumn fx:id="columnName" prefWidth="202.0" text="Nazwa" />
-         <TableColumn fx:id="columnCategory" prefWidth="239.0" text="Kategoria" />
+       <TableColumn fx:id="columnName" prefWidth="199.0" text="Nazwa" />
+         <TableColumn fx:id="columnCategory" prefWidth="233.0" text="Kategoria" />
      </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
    </TableView>
    <HBox alignment="CENTER" layoutX="57.0" layoutY="49.0" prefHeight="51.0" prefWidth="387.0" spacing="20.0">
       <children>
@@ -80,4 +83,5 @@
          <ComboBox fx:id="comboboxCategory" prefWidth="150.0" />
       </children>
    </HBox>
+   <Button alignment="CENTER" layoutX="216.0" layoutY="406.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="30.0" prefWidth="70.0" text="Zamknij" />
 </Pane>

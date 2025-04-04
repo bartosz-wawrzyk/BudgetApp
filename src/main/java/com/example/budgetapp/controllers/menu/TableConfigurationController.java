@@ -55,16 +55,15 @@ public class TableConfigurationController {
                 checkBox.setStyle("-fx-text-fill: white;");
                 checkboxContainer.getChildren().add(checkBox);
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd ładowania konfiguracji tabeli dla użytkownika: " + userId + e.getMessage());
         }
     }
 
     @FXML
-    private void saveConfiguration() {
+    private void handleSave() {
         if (userId == null || userId.isEmpty()) {
-            System.err.println("Błąd: userId jest null lub pusty!");
+            ErrorLogger.logError("Błąd: userId jest NULL lub pusty!");
             return;
         }
 
@@ -98,10 +97,14 @@ public class TableConfigurationController {
 
             Stage stage = (Stage) checkboxContainer.getScene().getWindow();
             stage.close();
-
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Błąd", "Wystąpił błąd podczas zapisywania konfiguracji.", Alert.AlertType.ERROR);
+            ErrorLogger.logError("Wystąpił błąd podczas zapisywania konfiguracji." + userId + e.getMessage());
         }
+    }
+
+    @FXML
+    private void handleCancel() {
+        Stage stage = (Stage) checkboxContainer.getScene().getWindow();
+        stage.close();
     }
 }

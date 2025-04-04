@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.DetailsController">
-    <VBox alignment="CENTER" prefHeight="550.0" prefWidth="500.0" spacing="10.0">
+<AnchorPane prefHeight="500.0" prefWidth="520.0" style="-fx-background-color: #2e2e2e;" stylesheets="@../style/table-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.DetailsController">
+    <VBox alignment="CENTER" prefHeight="550.0" prefWidth="520.0" spacing="10.0">
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </padding>
@@ -75,11 +75,11 @@
             <TextField fx:id="amountField" prefHeight="25.0" prefWidth="180.0" promptText="Kwota" />
          </children>
       </HBox>
-        <TableView fx:id="detailsTable" prefHeight="348.0" prefWidth="480.0">
+        <TableView fx:id="detailsTable" prefHeight="348.0" prefWidth="500.0">
             <columns>
                 <TableColumn fx:id="categoryColumn" prefWidth="130.0" resizable="false" text="Kategoria" />
-                <TableColumn fx:id="subcategoryColumn" prefWidth="250.0" resizable="false" text="Podkategoria" />
-                <TableColumn fx:id="amountColumn" prefWidth="99.0" resizable="false" text="Kwota" />
+                <TableColumn fx:id="subcategoryColumn" prefWidth="248.0" resizable="false" text="Podkategoria" />
+                <TableColumn fx:id="amountColumn" prefWidth="121.0" resizable="false" text="Kwota" />
             </columns>
         </TableView>
         <Button alignment="CENTER" onAction="#handleClose" text="Zamknij" />

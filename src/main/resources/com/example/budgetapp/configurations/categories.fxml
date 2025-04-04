@@ -11,19 +11,22 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="423.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.menu.CategoriesController">
-   <Text fill="WHITE" layoutX="121.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Słownik kategorii">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="430.0" style="-fx-background-color: #2e2e2e;" stylesheets="@../style/table-style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.budgetapp.controllers.menu.CategoriesController">
+   <Text fill="WHITE" layoutX="120.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Słownik kategorii">
       <font>
          <Font size="24.0" />
       </font>
    </Text>
-   <TableView fx:id="categoriestableView" layoutX="28.0" layoutY="161.0" prefHeight="228.0" prefWidth="368.0" style="-fx-background-color: #2e2e2e;">
+   <TableView fx:id="categoriestableView" fixedCellSize="0.0" layoutX="18.0" layoutY="157.0" prefHeight="228.0" prefWidth="400.0" style="-fx-background-color: #2e2e2e;">
      <columns>
-       <TableColumn fx:id="columnID" prefWidth="51.0" text="ID" />
-       <TableColumn fx:id="columnName" prefWidth="316.0" text="Nazwa" />
+       <TableColumn fx:id="columnID" prefWidth="68.0" text="ID" />
+       <TableColumn fx:id="columnName" prefWidth="320.0" text="Nazwa" />
      </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
    </TableView>
-   <HBox alignment="CENTER" layoutX="18.0" layoutY="46.0" prefHeight="51.0" prefWidth="387.0" spacing="20.0">
+   <HBox alignment="CENTER" layoutX="22.0" layoutY="46.0" prefHeight="51.0" prefWidth="387.0" spacing="20.0">
       <children>
          <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="30.0">
             <graphic>
@@ -72,5 +75,6 @@
          </Button>
       </children>
    </HBox>
-   <TextField fx:id="categoryNameField" layoutX="137.0" layoutY="118.0" />
+   <TextField fx:id="categoryNameField" layoutX="141.0" layoutY="116.0" />
+   <Button alignment="CENTER" layoutX="180.0" layoutY="406.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="30.0" prefWidth="70.0" text="Zamknij" />
 </Pane>

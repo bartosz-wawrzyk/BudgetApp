@@ -4,6 +4,7 @@ import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.models.ExpenseRecord;
 import com.example.budgetapp.models.DetailItem;
 import com.example.budgetapp.utils.AlertsController;
+import com.example.budgetapp.utils.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -62,9 +63,8 @@ public class DetailsController {
                 categoryComboBox.getItems().add(rs.getString("name"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd ładowania kategorii: " + e.getMessage());
         }
-
         categoryComboBox.setOnAction(event -> loadSubcategories());
     }
 
@@ -81,7 +81,7 @@ public class DetailsController {
                 subcategoryComboBox.getItems().add(rs.getString("name"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd łądowania podkategorii: " + e.getMessage());
         }
     }
 
@@ -106,7 +106,7 @@ public class DetailsController {
                 data.add(new DetailItem(rs.getString("category"), rs.getString("subcategory"), rs.getDouble("amount")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd ładowania danych osoby: " + e.getMessage());
         }
     }
 
@@ -155,11 +155,12 @@ public class DetailsController {
                 if (category == null || subcategory == null || amountText.isEmpty()) return;
 
                 String insert = """
-                INSERT INTO expenses (amount, id_subcategory, month, year, user_id)
-                VALUES (?, (SELECT s.id FROM subcategories s JOIN categories c ON s.id_category = c.id
-                            WHERE s.name = ? AND c.name = ?), ?, ?, ?)
-            """;
+                        INSERT INTO expenses (amount, id_subcategory, month, year, user_id)
+                        VALUES (?, (SELECT s.id FROM subcategories s JOIN categories c ON s.id_category = c.id
+                                    WHERE s.name = ? AND c.name = ?), ?, ?, ?)
+                        """;
 
+                assert conn != null;
                 PreparedStatement stmt = conn.prepareStatement(insert);
                 stmt.setDouble(1, amount);
                 stmt.setString(2, subcategory);
@@ -172,15 +173,14 @@ public class DetailsController {
 
             } else {
                 String update = """
-                UPDATE expenses SET amount = ?
-                WHERE user_id = ? AND month = ? AND year = ?
-                AND id_subcategory = (
-                    SELECT s.id FROM subcategories s
-                    JOIN categories c ON s.id_category = c.id
-                    WHERE s.name = ? AND c.name = ?
-                )
-            """;
-
+                        UPDATE expenses SET amount = ?
+                        WHERE user_id = ? AND month = ? AND year = ?
+                        AND id_subcategory = (
+                            SELECT s.id FROM subcategories s
+                            JOIN categories c ON s.id_category = c.id
+                            WHERE s.name = ? AND c.name = ?)
+                        """;
+                assert conn != null;
                 PreparedStatement stmt = conn.prepareStatement(update);
                 stmt.setDouble(1, amount);
                 stmt.setInt(2, Integer.parseInt(userId));
@@ -195,13 +195,10 @@ public class DetailsController {
                 detailsTable.refresh();
                 itemBeingEdited = null;
             }
-
             loadExpenseDetails();
-
         } catch (SQLException | NumberFormatException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd zapisu wydatków osoby: "+ userId + e.getMessage());
         }
-
         resetFormState();
     }
 
@@ -250,7 +247,7 @@ public class DetailsController {
                     data.remove(selected);
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    ErrorLogger.logError("Błąd kasowania wydatku dla użytkownika: " + userId + e.getMessage());
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.example.budgetapp.controllers;
 
+import com.example.budgetapp.utils.ErrorLogger;
 import com.example.budgetapp.utils.MonthUtils;
 import com.example.budgetapp.database.DatabaseConnection;
 import javafx.fxml.FXML;
@@ -97,8 +98,7 @@ public class AddIncomeController {
             stage.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Błąd", "Wystąpił problem podczas dodawania przychodu.", Alert.AlertType.ERROR);
+            ErrorLogger.logError("Wystąpił problem podczas dodawania przychodu." + e.getMessage());
         }
     }
 

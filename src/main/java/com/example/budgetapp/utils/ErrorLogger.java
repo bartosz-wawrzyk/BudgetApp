@@ -19,7 +19,7 @@ public class ErrorLogger {
              PrintWriter pw = new PrintWriter(fw)) {
             pw.println(logMessage);
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd zapisu błędów do pliku: " + e.getMessage());
         }
     }
 }

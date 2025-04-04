@@ -68,16 +68,15 @@ public class MainWindowController {
                     setText(String.format("%.2f", value));
 
                     if (value > 0) {
-                        setStyle("-fx-text-fill: green;");
+                        setStyle("-fx-text-fill: #80ff80;");
                     } else if (value < 0) {
-                        setStyle("-fx-text-fill: red;");
+                        setStyle("-fx-text-fill: #ff9999;");
                     } else {
                         setStyle("");
                     }
                 }
             }
         });
-
         applyTableConfiguration();
     }
 
@@ -131,7 +130,7 @@ public class MainWindowController {
             }
 
             Platform.runLater(() -> {
-                double remainingWidth = expensesTable.getWidth() - 600; // 4 kolumny po 150px
+                double remainingWidth = expensesTable.getWidth() - 600;
                 double categoryWidth = remainingWidth / Math.max(1, selectedCategoryIds.size());
 
                 List<TableColumn<ExpenseRecord, ?>> dynamicColumns = new ArrayList<>();
@@ -218,7 +217,7 @@ public class MainWindowController {
                     .thenComparing(r -> Integer.parseInt(r.getMonth())));
             expensesTable.getItems().addAll(sortedRecords);
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd ładowania danych do tabeli: " + " - " + e.getMessage());
         }
     }
 
@@ -252,7 +251,6 @@ public class MainWindowController {
             AlertsController.showAlert("Błąd", "Proszę wybrać tylko jeden miesiąc i rok.", Alert.AlertType.WARNING);
             return null;
         }
-
         return selectedItems.get(0);
     }
 
@@ -273,8 +271,7 @@ public class MainWindowController {
 
             loadExpenses();
         } catch (IOException e) {
-            e.printStackTrace();
-            ErrorLogger.logError("Błąd ładowania szczegółów: " + e.getMessage());
+            ErrorLogger.logError("Błąd ładowania szczegółów: " + expense.getMonth() + "/" + expense.getYear() + " - " + e.getMessage());
         }
     }
 
@@ -304,6 +301,7 @@ public class MainWindowController {
             loadExpenses();
         } catch (IOException e) {
             e.printStackTrace();
+            ErrorLogger.logError("Błąd podczas otwierania okna modalnego: " + fxmlFile + " - "  + e.getMessage());
         }
     }
 
@@ -343,7 +341,7 @@ public class MainWindowController {
                 newStage.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd podczas wylogowania: " + e.getMessage());
         }
     }
 
@@ -361,7 +359,7 @@ public class MainWindowController {
             stage.showAndWait();
             loadExpenses();
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd otwierania okna modalnego menu: "+ fxmlFile + " - " + e.getMessage());
         }
     }
 
@@ -370,10 +368,11 @@ public class MainWindowController {
             int uid = Integer.parseInt(userId);
 
             String incomeQuery = """
-            SELECT id, amount, month, year FROM incomes
-            WHERE user_id = ?
-        """;
+                SELECT id, amount, month, year FROM incomes
+                WHERE user_id = ?
+                """;
 
+            assert conn != null;
             PreparedStatement incomeStmt = conn.prepareStatement(incomeQuery);
             incomeStmt.setInt(1, uid);
             ResultSet incomeRs = incomeStmt.executeQuery();
@@ -400,9 +399,8 @@ public class MainWindowController {
                 // Save or update the difference
                 insertOrUpdateSummary(conn, incomeId, 0, diff);
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorLogger.logError("Błąd przeliczania wydatków: " + e.getMessage());
         }
     }
 
@@ -415,7 +413,7 @@ public class MainWindowController {
         """;
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, incomeId);
-            stmt.setInt(2, categoryId != null ? categoryId : 0); // ⬅️ zamieniamy null na 0
+            stmt.setInt(2, categoryId != null ? categoryId : 0);
             stmt.setDouble(3, amount);
             stmt.executeUpdate();
         }

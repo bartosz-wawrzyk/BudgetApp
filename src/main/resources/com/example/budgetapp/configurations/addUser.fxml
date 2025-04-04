@@ -13,28 +13,17 @@
       <VBox alignment="CENTER" prefHeight="360.0" prefWidth="320.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="10.0">
          <children>
               <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Dodaj nowego użytkownika" />
-      
-              <!-- Login -->
+
               <TextField fx:id="loginField" promptText="Login" style="-fx-background-color: #3a3a3a; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px;" />
-      
-              <!-- Password -->
               <PasswordField fx:id="passwordField" promptText="Hasło" style="-fx-background-color: #3a3a3a; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px;" />
-      
-              <!-- Confirm Password -->
               <PasswordField fx:id="confirmPasswordField" promptText="Potwierdź hasło" style="-fx-background-color: #3a3a3a; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px;" />
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="289.0" spacing="40.0">
-               <children>
-            
-                    <!-- Save Button -->
-                    <Button mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" text="Zapisz" />
-            
-                    <!-- Cancel Button -->
-                    <Button mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" text="Anuluj" />
-               </children>
-            </HBox>
-      
-                                <!-- Message Label -->
-              <Label fx:id="messageLabel" prefHeight="17.0" prefWidth="0.0" style="-fx-text-fill: white; -fx-font-size: 12px;" textAlignment="CENTER" />
+                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="289.0" spacing="40.0">
+                   <children>
+                        <Button mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" text="Zapisz" />
+                        <Button mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" text="Anuluj" />
+                   </children>
+                </HBox>
+              <Label fx:id="messageLabel" prefHeight="35.0" prefWidth="200.0" style="-fx-text-fill: red; -fx-font-size: 12px;" textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
     </children>

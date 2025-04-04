@@ -4,10 +4,12 @@ import com.example.budgetapp.models.SubCategoriesRecord;
 import com.example.budgetapp.models.CategoriesRecord;
 import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.utils.AlertsController;
+import com.example.budgetapp.utils.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.*;
 
@@ -74,7 +76,7 @@ public class SubCategoriesController {
                 }
                 comboboxCategory.setItems(FXCollections.observableArrayList(categoriesList.stream().map(CategoriesRecord::getName).toArray(String[]::new))); // Populate ComboBox
             } catch (SQLException e) {
-                e.printStackTrace();
+                ErrorLogger.logError("Błąd ładowania kategorii: " + e.getMessage());
             }
         }
     }
@@ -89,7 +91,7 @@ public class SubCategoriesController {
                     subcategories.add(new SubCategoriesRecord(rs.getInt("id"), rs.getString("name"), categoryName));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                ErrorLogger.logError("Błąd ładowania podkategorii: " + e.getMessage());
             }
         }
     }
@@ -130,7 +132,7 @@ public class SubCategoriesController {
                         stmt.executeUpdate();
                         subcategories.remove(selectedSubCategory);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        ErrorLogger.logError("Błąd podczas kasowania podkategorii: " + e.getMessage());
                     }
                 }
             });
@@ -156,7 +158,7 @@ public class SubCategoriesController {
                 stmt.setInt(3, selectedSubCategory.getId());
                 stmt.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                ErrorLogger.logError("Błąd podczas aktualizacji podkategorii: " + e.getMessage());
             }
             subcategoriesTableView.refresh();
         } else {
@@ -177,7 +179,7 @@ public class SubCategoriesController {
                         }
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    ErrorLogger.logError("Błąd podczas dodawania podkategorii: " + e.getMessage());
                 }
             }
         }
@@ -190,6 +192,12 @@ public class SubCategoriesController {
             subcategoriesTableView.refresh();
         }
         resetButtons();
+    }
+
+    @FXML
+    private void handleClose() {
+        Stage stage = (Stage) subcategoriesTableView.getScene().getWindow();
+        stage.close();
     }
 
     private void disableActionButtons(boolean disable) {

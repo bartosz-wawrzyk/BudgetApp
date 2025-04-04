@@ -3,11 +3,13 @@ package com.example.budgetapp.controllers.menu;
 import com.example.budgetapp.models.CategoriesRecord;
 import com.example.budgetapp.database.DatabaseConnection;
 import com.example.budgetapp.utils.AlertsController;
+import com.example.budgetapp.utils.ErrorLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.sql.*;
 
@@ -60,7 +62,7 @@ public class CategoriesController {
                     categories.add(new CategoriesRecord(rs.getInt("id"), rs.getString("name")));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                 ErrorLogger.logError("Błąd podczas wyświetlania kategorii: " + e.getMessage());
             }
         }
     }
@@ -99,7 +101,7 @@ public class CategoriesController {
                         stmt.executeUpdate();
                         categories.remove(selectedCategory);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        ErrorLogger.logError("Błąd podczas kasowania kategorii: " + e.getMessage());
                     }
                 }
             });
@@ -115,7 +117,7 @@ public class CategoriesController {
                 stmt.setInt(2, selectedCategory.getId());
                 stmt.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                ErrorLogger.logError("Błąd podczas aktualizacji kategorii: " + e.getMessage());
             }
             categoriestableView.refresh();
         } else {
@@ -142,7 +144,7 @@ public class CategoriesController {
                         }
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    ErrorLogger.logError("Błąd podczas dodawania kategorii: " + e.getMessage());
                 }
             }
         }
@@ -155,6 +157,12 @@ public class CategoriesController {
             categoriestableView.refresh();
         }
         resetButtons();
+    }
+
+    @FXML
+    private void handleClose() {
+        Stage stage = (Stage) categoriestableView.getScene().getWindow();
+        stage.close();
     }
 
     private void disableActionButtons(boolean disable) {
