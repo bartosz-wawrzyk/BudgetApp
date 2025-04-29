@@ -69,8 +69,6 @@ When viewing details of a selected month, the application displays:
 - A breakdown of expenses by subcategory.
 - Exact income and spending amounts.
 
-![image](https://github.com/user-attachments/assets/987a92c1-0423-45cf-928f-9b328a0a69fa)
-
 
 ## Author
 
