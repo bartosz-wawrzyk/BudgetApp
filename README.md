@@ -45,6 +45,7 @@ Users must log in to access the main application. The login screen includes:
   - Register a new user.
   - Open database connection settings.
   - Exit the application safely.
+
 ![image](https://github.com/user-attachments/assets/be6265ba-0872-49c1-889d-4aaeb9dac184)
 
 
@@ -58,6 +59,7 @@ After successful login, users are taken to the main window, which includes:
   - View detailed information about a selected month.
   - Access dictionaries of categories and subcategories.
   - Log out and return to the login screen.
+
  ![image](https://github.com/user-attachments/assets/faf96b8e-0948-4ed2-8b4f-943c7a81ba51)
 
 
@@ -66,6 +68,7 @@ After successful login, users are taken to the main window, which includes:
 When viewing details of a selected month, the application displays:
 - A breakdown of expenses by subcategory.
 - Exact income and spending amounts.
+
 ![image](https://github.com/user-attachments/assets/987a92c1-0423-45cf-928f-9b328a0a69fa)
 
 
